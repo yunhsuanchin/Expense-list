@@ -1,4 +1,8 @@
+// require necessary modules
 const express = require('express')
+require('./config/mongoose')
+
+// modules setting
 const app = express()
 
 app.get('/', (req, res) => {
