@@ -1,12 +1,15 @@
 // require necessary modules
 const express = require('express')
+const app = express()
+const exphbs = require('express-handlebars')
 require('./config/mongoose')
 
 // modules setting
-const app = express()
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
-  res.send('Hello')
+  res.render('index')
 })
 
 app.listen(3000, () => {
