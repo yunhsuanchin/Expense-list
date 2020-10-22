@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "name": "午餐",
+      "category": "Food",
+      "date": "2020-07-09",
+      "amount": 100
+    },
+    {
+      "name": "看電影",
+      "category": "Entertainment",
+      "date": "2020-08-12",
+      "amount": 300
+    },
+    {
+      "name": "買牛奶",
+      "category": "Grocery",
+      "date": "2020-09-07",
+      "amount": 120
+    },
+    {
+      "name": "捷運",
+      "category": "Transportation",
+      "date": "2020-10-16",
+      "amount": 35
+    },
+    {
+      "name": "買衣服",
+      "category": "Shopping",
+      "date": "2020-11-01",
+      "amount": 2180
+    }
+  ]
+}
