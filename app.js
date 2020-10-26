@@ -74,6 +74,15 @@ app.put('/records/:id', (req, res) => {
     .catch(err => console.error(err))
 })
 
+// route --> delete a record
+app.delete('/records/:id', (req, res) => {
+  const id = req.params.id
+  Record.findById(id)
+    .then(record => record.remove())
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
+})
+
 // listen
 app.listen(3000, () => {
   console.log('App is listening on http://localhost:3000')
