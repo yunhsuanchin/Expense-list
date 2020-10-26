@@ -9,7 +9,17 @@ const Category = require('./models/category')
 require('./config/mongoose')
 
 // modules setting
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({
+  defaultLayout: 'main',
+  extname: '.hbs',
+  helpers: {
+    if_equal(oldValue, newValue, option) {
+      if (oldValue === newValue) {
+        return option.fn(this)
+      }
+    }
+  }
+}))
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
@@ -18,6 +28,7 @@ app.use(methodOverride('_method'))
 app.get('/', (req, res) => {
   Record.find()
     .lean()
+    .sort('_id')
     .then(records => res.render('index', { records }))
     .catch(err => console.error(err))
 })
@@ -43,13 +54,24 @@ app.get('/records/:id/edit', (req, res) => {
   const id = req.params.id
   Record.findById(id)
     .lean()
-    .then((record) => res.render('edit', { record }))
+    .then(record =>
+      Category.find()
+        .lean()
+        .then(categories => res.render('edit', { record, categories })))
     .catch(err => console.error(err))
 })
 
 // route --> put a record
-app.put('/records/edit', (req, res) => {
-
+app.put('/records/:id', (req, res) => {
+  const id = req.params.id
+  const editedRecord = req.body
+  Record.findById(id)
+    .then(record => {
+      Object.assign(record, editedRecord)
+      return record.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
 })
 
 // listen

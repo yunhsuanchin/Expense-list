@@ -1,18 +1,20 @@
 <h4>修改一筆支出</h4>
-<form action="/records/{{ record._id }}" method="POST">
+<form action="/records/{{ record._id }}?_method=PUT" method="POST">
   <label for="name">名稱：</label>
-  <input type="text" name="name" id="name" required>
+  <input type="text" name="name" id="name" value="{{ record.name }}">
   <label for="date">日期：</label>
-  <input type="date" name="date" id="date" required>
+  <input type="date" name="date" id="date" value="{{ record.date }}">
 
   <label for="category">類別</label>
   <select name="category" id="category" required>
     <option disabled selected>請選擇類別</option>
     {{#each categories}}
-    <option value="{{ this.title }}" name="{{ this.title }}">{{ this.title }}</option>
+    <option value="{{ this.title }}" name="{{ this.title }}"
+      {{#if_equal ../record.category this.title}}selected{{/if_equal}}>
+      {{ this.title }}</option>
     {{/each}}
   </select>
   <label for="amount">金額：</label>
-  <input type="number" name="amount" id="amount" required>
+  <input type="number" name="amount" id="amount" value="{{ record.amount }}">
   <button type="submit">送出</button>
 </form>
