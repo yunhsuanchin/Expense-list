@@ -1,0 +1,20 @@
+<h4>請輸入一筆支出</h4>
+<form action="/records" method="POST">
+  <label for="name">名稱：</label>
+  <input type="text" name="name" id="name" required>
+  <label for="date">日期：</label>
+  <input type="date" name="date" id="date" required>
+
+  <form action="/" method="GET" id="category-selection">
+    <label for="category-selection">類別</label>
+    <select class="custom-select" form="category-selection" onchange="this.form.submit()" required>
+      <option value="all">全部</option>
+      <option value="1" name="one">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+    <label for="amount">金額：</label>
+    <input type="number" name="amount" id="amount" required>
+    <button type="submit">送出</button>
+  </form>
+</form>
