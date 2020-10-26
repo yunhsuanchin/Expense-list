@@ -5,22 +5,28 @@ const router = express.Router()
 // require record model & category model
 const Record = require('../../models/record')
 const Category = require('../../models/category')
+const record = require('../../models/record')
 
 // route --> index page & category filter
 router.get('/', (req, res) => {
-  const categoryFilter = req.query.category
-  Record.find()
+  const categoryFilter = req.query.category || 'all'
+  Category.find()
     .lean()
-    .then(records =>
-      Category.find()
+    .then(categories =>
+      Record.find()
         .lean()
         .sort('date')
-        .then(categories => {
-          if (!categoryFilter || categoryFilter === 'all') {
-            return res.render('index', { records, categories })
-          } else if (categoryFilter !== 'all') {
-            const filterResults = records.filter(record => record.category === categoryFilter)
-            return res.render('index', { records: filterResults, categories, categoryFilter })
+        .then(records => {
+          let totalAmount = 0
+          if (categoryFilter === 'all') {
+            records.forEach(record => { totalAmount += record.amount })
+            return res.render('index', { records, categories, totalAmount })
+          } else {
+            const filterResults = records.filter(record => {
+              return record.category === categoryFilter
+            })
+            filterResults.forEach(record => { totalAmount += record.amount })
+            return res.render('index', { records: filterResults, categories, categoryFilter, totalAmount })
           }
         })
         .catch(err => console.error(err))
