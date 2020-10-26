@@ -1,17 +1,20 @@
-<div class="total-amount d-flex">
-  <p class="mr-3">總支出：<span class="font-weight-bold" style="font-size: larger; color: red;">1000</span></p>
+<div class="d-flex">
+  <p class="mr-3">總支出：<span class="font-weight-bold" style="font-size: larger; color: red;"
+      id="total-amount">1000</span></p>
   <p>總收入：<span class="font-weight-bold" style="font-size: larger; color: green;">1000</span></p>
 </div>
 
 <div class="d-flex">
   <div>月份</div>
   <label for="category-selection">類別</label>
-  <form action="/" method="GET" id="category-selection">
-    <select class="custom-select" form="category-selection" onchange="this.form.submit()">
-      <option value="all">全部</option>
-      <option value="1" name="one">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
+  <form action="/" method="GET" id="category">
+    <select class="custom-select" form="category" onchange="this.form.submit()" id="category-selection" name="category">
+      <option value="all" name="all">全部</option>
+      {{#each categories}}
+      <option value="{{ this.title }}" name="{{ this.title }}"
+        {{#if_equal ../categoryFilter this.title}}selected{{/if_equal}}>{{ this.title }}
+      </option>
+      {{/each}}
     </select>
   </form>
 </div>
@@ -23,7 +26,7 @@
       <div class="col-auto mr-auto">
         <h4 class="d-inline">{{ this.name }}</h4>
         <p class="d-inline">{{ this.date }}</p>
-        <strong>{{ this.amount }}</strong>
+        <strong id="amount">{{ this.amount }}</strong>
       </div>
 
       <div class="col-auto">

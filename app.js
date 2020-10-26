@@ -4,8 +4,6 @@ const app = express()
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const Record = require('./models/record')
-const Category = require('./models/category')
 const routes = require('./routes')
 require('./config/mongoose')
 
