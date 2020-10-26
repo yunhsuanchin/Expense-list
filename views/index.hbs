@@ -1,6 +1,5 @@
 <div class="d-flex">
   <p class="mr-3">總支出：<span class="font-weight-bold" style="font-size: larger; color: red;">{{ totalAmount }}</span></p>
-  <p>總收入：<span class="font-weight-bold" style="font-size: larger; color: green;">1000</span></p>
 </div>
 
 <div class="d-flex">
@@ -23,6 +22,7 @@
   <li class="list-group-item">
     <div class="row">
       <div class="col-auto mr-auto">
+        {{{ this.category.icon }}}
         <h4 class="d-inline">{{ this.name }}</h4>
         <p class="d-inline">{{ this.date }}</p>
         <strong id="amount">{{ this.amount }}</strong>

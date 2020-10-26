@@ -5,7 +5,6 @@ const router = express.Router()
 // require record model & category model
 const Record = require('../../models/record')
 const Category = require('../../models/category')
-const record = require('../../models/record')
 
 // route --> index page & category filter
 router.get('/', (req, res) => {
@@ -15,6 +14,7 @@ router.get('/', (req, res) => {
     .then(categories =>
       Record.find()
         .lean()
+        .populate('category')
         .sort('date')
         .then(records => {
           let totalAmount = 0
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
             return res.render('index', { records, categories, totalAmount })
           } else {
             const filterResults = records.filter(record => {
-              return record.category === categoryFilter
+              return record.category.title === categoryFilter
             })
             filterResults.forEach(record => { totalAmount += record.amount })
             return res.render('index', { records: filterResults, categories, categoryFilter, totalAmount })

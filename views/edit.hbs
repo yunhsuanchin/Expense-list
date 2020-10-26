@@ -9,8 +9,8 @@
   <select name="category" id="category" required>
     <option disabled selected>請選擇類別</option>
     {{#each categories}}
-    <option value="{{ this.title }}" name="{{ this.title }}"
-      {{#if_equal ../record.category this.title}}selected{{/if_equal}}>
+    <option value="{{ this._id }}" name="{{ this.title }}"
+      {{#if_equal ../record.category.title this.title}}selected{{/if_equal}}>
       {{ this.title }}</option>
     {{/each}}
   </select>
