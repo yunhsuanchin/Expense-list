@@ -4,6 +4,7 @@ const app = express()
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const Record = require('./models/record')
+const Category = require('./models/category')
 require('./config/mongoose')
 
 // modules setting
@@ -16,17 +17,23 @@ app.get('/', (req, res) => {
   Record.find()
     .lean()
     .then(records => res.render('index', { records }))
-    .catch(err => console.log(err))
+    .catch(err => console.error(err))
 })
 
 // route --> go to new page
 app.get('/records/new', (req, res) => {
-  res.render('new')
+  Category.find()
+    .lean()
+    .then(categories => res.render('new', { categories }))
+    .catch(err => console.error(err))
 })
 
 // route --> post a new record
 app.post('/records', (req, res) => {
-  console.log(req.body)
+  const newRecord = req.body
+  Record.create(newRecord)
+    .then(() => res.redirect('/'))
+    .catch(err => console.error(err))
 })
 
 // listen
