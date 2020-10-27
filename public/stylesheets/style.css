@@ -1,0 +1,7 @@
+.add-btn:hover {
+  color: red;
+}
+
+list-group .expense-list:nth-child(odd) {
+  background-color: #fffff0;
+}

@@ -1,20 +1,29 @@
-<h4>修改一筆支出</h4>
+<h4 class="text-center pt-3 mb-5">修改一筆支出</h4>
 <form action="/records/{{ record._id }}?_method=PUT" method="POST">
-  <label for="name">名稱：</label>
-  <input type="text" name="name" id="name" value="{{ record.name }}">
-  <label for="date">日期：</label>
-  <input type="date" name="date" id="date" value="{{ record.date }}">
-
-  <label for="category">類別</label>
-  <select name="category" id="category" required>
-    <option disabled selected>請選擇類別</option>
-    {{#each categories}}
-    <option value="{{ this._id }}" name="{{ this.title }}"
-      {{#if_equal ../record.category.title this.title}}selected{{/if_equal}}>
-      {{ this.title }}</option>
-    {{/each}}
-  </select>
-  <label for="amount">金額：</label>
-  <input type="number" name="amount" id="amount" value="{{ record.amount }}">
-  <button type="submit">送出</button>
+  <div class="input-group mb-3">
+    <label for="name" class="btn btn-outline-info">名稱</label>
+    <input type="text" class="form-control" name="name" id="name" value="{{ record.name }}">
+  </div>
+  <div class="input-group mb-3">
+    <label for="date" class="btn btn-outline-info">日期</label>
+    <input type="date" class="form-control" name="date" id="date" value="{{ record.date }}">
+  </div>
+  <div class="input-group mb-3">
+    <label for="category" class="btn btn-outline-info">類別</label>
+    <select name="category" id="category" class="form-control" required>
+      <option disabled selected>請選擇類別</option>
+      {{#each categories}}
+      <option value="{{ this._id }}" name="{{ this.title }}"
+        {{#if_equal ../record.category.title this.title}}selected{{/if_equal}}>
+        {{ this.title }}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="input-group mb-3">
+    <label for="amount" class="btn btn-outline-info">金額</label>
+    <input type="number" class="form-control" name="amount" id="amount" value="{{ record.amount }}">
+  </div>
+  <div class="text-center pb-3">
+    <button type="submit" class="btn btn-dark">儲存</button>
+  </div>
 </form>

@@ -1,37 +1,63 @@
-<div class="d-flex">
-  <p class="mr-3">總支出：<span class="font-weight-bold" style="font-size: larger; color: red;">{{ totalAmount }}</span></p>
+<div class="bar text-right pt-3">
+  <p class="mr-3">總支出：
+    <span class="font-weight-bold" style="font-size: larger; color: red;">{{ totalAmount }}</span>
+  </p>
 </div>
 
-<div class="d-flex">
-  <div>月份</div>
-  <label for="category-selection">類別</label>
-  <form action="/" method="GET" id="category">
-    <select class="custom-select" form="category" onchange="this.form.submit()" id="category-selection" name="category">
-      <option value="all" name="all">全部</option>
-      {{#each categories}}
-      <option value="{{ this.title }}" name="{{ this.title }}"
-        {{#if_equal ../categoryFilter this.title}}selected{{/if_equal}}>{{ this.title }}
-      </option>
-      {{/each}}
-    </select>
-  </form>
+<div class="row d-flex align-items-center">
+  <div class="col-8 mr-auto">
+    月份：
+  </div>
+  <div class="col">
+    <label for="category-selection" style="font-size: 1.3em;"><i class="fas fa-filter"></i></label>
+  </div>
+  <div class="col-3">
+    <form action="/" method="GET" id="category">
+      <select class="custom-select" form="category" onchange="this.form.submit()" id="category-selection"
+        name="category">
+        <option value="all" name="all">全部類別</option>
+        {{#each categories}}
+        <option value="{{ this.title }}" name="{{ this.title }}"
+          {{#if_equal ../categoryFilter this.title}}selected{{/if_equal}}>{{ this.title }}
+        </option>
+        {{/each}}
+      </select>
+    </form>
+  </div>
 </div>
 
-<ul class="list-group">
-  {{#each records}}
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-auto mr-auto">
-        {{{ this.category.icon }}}
-        <h4 class="d-inline">{{ this.name }}</h4>
-        <p class="d-inline">{{ this.date }}</p>
-        <strong id="amount">{{ this.amount }}</strong>
+<ul class="list-group my-3 pb-5">
+  <li class="list-group-item list-group-item-info">
+    <div class="row d-flex align-items-center">
+      <div class="col-4">
+        <h5>支出項目</h5>
       </div>
-
-      <div class="col-auto">
-        <a class="btn btn-outline-warning mr-1" href="./records/{{ this._id }}/edit">edit</a>
+      <div class="col-4">
+        <h5>日期</h5>
+      </div>
+      <div class="col-4">
+        <h5>金額</h5>
+      </div>
+    </div>
+  </li>
+  {{#each records}}
+  <li class="expense-list list-group-item">
+    <div class="row d-flex align-items-center">
+      <div class="col-4">
+        <div style="font-size: 1.5em; display: inline;">{{{ this.category.icon }}}</div>
+        <h4 class="d-inline ml-2">{{ this.name }}</h4>
+      </div>
+      <div class="col-3 text-left">
+        <p style="display: inline;">{{ this.date }}</p>
+      </div>
+      <div class="col-2 text-right">
+        <strong style="color: red;">{{ this.amount }}</strong>
+      </div>
+      <div class="col-3 text-right">
+        <a class="btn btn-outline-warning mr-1" href="./records/{{ this._id }}/edit"><i class="fas fa-edit"></i></a>
         <form action="/records/{{ this._id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-outline-danger" type="submit">delete</button>
+          <button class="btn btn-outline-danger" type="submit"
+            onclick="return confirm('確定刪除『{{ this.name }}』這筆支出嗎？')"><i class="far fa-trash-alt"></i></button>
         </form>
       </div>
     </div>
