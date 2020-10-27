@@ -34,10 +34,10 @@
 ---
 
 1. 開啟終端機 (Terminal)，clone 此專案至本機電腦
-<p><code>git clone https://github.com/yunhsuanchin/Restaurant_List_2.git</code></p>
+<p><code>git clone https://github.com/yunhsuanchin/Expense-list.git</code></p>
 
 2. 進入專案資料夾
-<p><code>cd Restaurant_List</p></code>
+<p><code>cd Expense_List</p></code>
 
 3. 透過 robo 3T 操作 mongoDB，與本機 localhost: 27017 建立連線，並建立名稱為 expense-list 的資料夾
 
