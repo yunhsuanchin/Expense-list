@@ -9,10 +9,11 @@ const Category = require('../../models/category')
 // route --> index page & category filter
 router.get('/', (req, res) => {
   const categoryFilter = req.query.category || 'all'
+  const userId = req.user._id
   Category.find()
     .lean()
     .then(categories =>
-      Record.find()
+      Record.find({ userId })
         .lean()
         .populate('category')
         .sort('date')

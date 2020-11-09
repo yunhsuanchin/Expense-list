@@ -20,6 +20,7 @@ router.post('/login', passport.authenticate('local', {
 // route --> logout request
 router.get('/logout', (req, res) => {
   req.logout()
+  req.flash('success_msg', 'Successfully logout!')
   res.redirect('/users/login')
 })
 
@@ -29,12 +30,12 @@ router.get('/register', (req, res) => {
 })
 
 // route --> register request
-router.post('/register', (req, res) => {
+router.post('/register', (req, res, next) => {
   const { name, email, password, confirmPassword } = req.body
   User.findOne({ email })
     .then(user => {
       if (user) {
-        console.log('This email has been registered.')
+        req.flash('error_msg', 'This email has been registered.')
         return res.render('register', {
           name,
           email,
@@ -43,7 +44,7 @@ router.post('/register', (req, res) => {
         })
       }
       if (password !== confirmPassword) {
-        console.log('The password does not matched.')
+        req.flash('error_msg', 'The password does not matched.')
         return res.render('register', {
           name,
           email,
@@ -57,10 +58,15 @@ router.post('/register', (req, res) => {
         email,
         password
       })
-        .then(() => res.redirect('/'))
+        .then(() => next())
         .catch(err => console.error(err))
     })
     .catch(err => console.error(err))
-})
+}, passport.authenticate('local', {
+  failureRedirect: '/users/login',
+  successRedirect: '/',
+  failureFlash: true,
+  successFlash: true
+}))
 
 module.exports = router
