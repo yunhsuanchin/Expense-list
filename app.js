@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
+const session = require('express-session')
 require('./config/mongoose')
 
 // modules setting
@@ -13,7 +14,7 @@ app.engine('hbs', exphbs({
   defaultLayout: 'main',
   extname: '.hbs',
   helpers: {
-    if_equal(oldValue, newValue, option) {
+    if_equal (oldValue, newValue, option) {
       if (oldValue === newValue) {
         return option.fn(this)
       }
@@ -26,6 +27,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(routes)
 app.use(express.static('public'))
+app.use(session({
+  secret: 'ThisIsMySecret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 // listen
 app.listen(PORT, () => {
