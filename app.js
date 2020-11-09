@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 // modules setting
@@ -25,13 +26,14 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-app.use(routes)
 app.use(express.static('public'))
 app.use(session({
   secret: 'ThisIsMySecret',
   resave: false,
   saveUninitialized: true
 }))
+usePassport(app)
+app.use(routes)
 
 // listen
 app.listen(PORT, () => {
