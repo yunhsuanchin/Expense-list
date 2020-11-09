@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-6 m-auto">
+    <h1 class="mb-5 text-center"
+      style="color: white; text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); font-size: 3rem; margin-top: -100px;">
+      Register</h1>
+    <div class="card card-body">
+      {{> message}}
+      <form action="/users/register" method="POST">
+        <div class="form-group">
+          <label for="name">Name<small>（optional）</small></label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Please Enter Your Name"
+            value="{{ name }}">
+        </div>
+        <div class="form-group">
+          <label for="email" style="color: red;">* Email<small>（required）</small></label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Please Enter Your Email"
+            value="{{ email }}">
+        </div>
+        <div class="form-group">
+          <label for="password" style="color: red;">* Password<small>（required）</small></label>
+          <input type="password" class="form-control" id="password" name="password"
+            placeholder="Please Enter Your Password" value="{{ password }}">
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword" style="color: red;">* Confirm Password<small>（required）</small></label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+            placeholder="Please Enter Your Password Again" value="{{ confirmPassword }}">
+        </div>
+        <button type="submit" class="btn btn-outline-info btn-block">Register</button>
+        <a href="/auth/facebook" class="btn btn-outline-primary btn-block">Register via Facebook</a>
+        <p class="mt-4">Already Have An Account? <a href="/users/login" class="ml-1">Login</a></p>
+      </form>
+    </div>
+  </div>
+
+</div>
