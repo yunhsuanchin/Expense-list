@@ -62,10 +62,7 @@ router.post('/register', (req, res, next) => {
           password: hash
         }))
 
-        .then(() => {
-          console.log('next')
-          return next()
-        })
+        .then(() => next())
         .catch(err => console.error(err))
     })
 }, passport.authenticate('local', {

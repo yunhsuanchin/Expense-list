@@ -3,7 +3,6 @@ const router = express.Router()
 
 const Record = require('../../models/record')
 const Category = require('../../models/category')
-const User = require('../../models/user')
 
 // route --> go to new page
 router.get('/new', (req, res) => {
