@@ -1,8 +1,12 @@
-<h4 class="text-center pt-3 mb-5">修改一筆支出</h4>
+<h4 class="text-center pt-3 mb-5">修改支出：「{{ record.name }}」</h4>
 <form action="/records/{{ record._id }}?_method=PUT" method="POST">
   <div class="input-group mb-3">
     <label for="name" class="btn btn-outline-info">名稱</label>
     <input type="text" class="form-control" name="name" id="name" value="{{ record.name }}">
+  </div>
+  <div class="input-group mb-3">
+    <label for="merchant" class="btn btn-outline-info">店家</label>
+    <input type="text" class="form-control" name="merchant" id="merchant" value="{{ record.merchant }}">
   </div>
   <div class="input-group mb-3">
     <label for="date" class="btn btn-outline-info">日期</label>

@@ -1,8 +1,6 @@
-// require express & express.router
 const express = require('express')
 const router = express.Router()
 
-// require record model & category model
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 
@@ -17,6 +15,7 @@ router.get('/new', (req, res) => {
 // route --> post a new record
 router.post('/', (req, res) => {
   const newRecord = req.body
+  newRecord.userId = req.user._id
   Record.create(newRecord)
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
