@@ -23,9 +23,8 @@ router.post('/', (req, res) => {
 
 // route --> go to edit page
 router.get('/:id/edit', (req, res) => {
-  const _id = req.params.id
-  const userId = req.user._id
-  Record.findOne({ _id, userId })
+  const id = req.params.id
+  Record.findById(id)
     .lean()
     .populate('category')
     .then(record =>
@@ -37,10 +36,9 @@ router.get('/:id/edit', (req, res) => {
 
 // route --> put a record
 router.put('/:id', (req, res) => {
-  const _id = req.params.id
-  const userId = req.user._id
+  const id = req.params.id
   const editedRecord = req.body
-  Record.findOne({ _id, userId })
+  Record.findById(id)
     .then(record => {
       Object.assign(record, editedRecord)
       return record.save()
@@ -51,9 +49,8 @@ router.put('/:id', (req, res) => {
 
 // route --> delete a record
 router.delete('/:id', (req, res) => {
-  const _id = req.params.id
-  const userId = req.user._id
-  Record.findOne({ _id, userId })
+  const id = req.params.id
+  Record.findById(id)
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(err => console.error(err))
