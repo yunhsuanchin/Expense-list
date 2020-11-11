@@ -6,7 +6,7 @@ const db = require('../../config/mongoose')
 const Record = require('../record')
 const Category = require('../category')
 const User = require('../user')
-const records = require('../data/record.json')
+const records = require('../data/record')
 
 db.once('open', () => {
   Category.find()
