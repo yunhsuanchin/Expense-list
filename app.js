@@ -13,19 +13,14 @@ const routes = require('./routes')
 const session = require('express-session')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
+const helpers = require('./utils/exphbs-helper')
 require('./config/mongoose')
 
 // modules setting
 app.engine('hbs', exphbs({
   defaultLayout: 'main',
   extname: '.hbs',
-  helpers: {
-    if_equal (oldValue, newValue, option) {
-      if (oldValue === newValue) {
-        return option.fn(this)
-      }
-    }
-  }
+  helpers
 }))
 
 app.set('view engine', 'hbs')
