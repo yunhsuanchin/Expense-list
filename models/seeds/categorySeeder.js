@@ -1,13 +1,16 @@
-// require mongoose
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const db = require('../../config/mongoose')
-// require category model
 const Category = require('../category')
-// require category.json
 const categories = require('../data/category.json')
 
 db.once('open', () => {
   Category.insertMany(categories)
-    .then(() => console.log('Done for category seeder creation.'))
-    .then(() => db.close())
+    .then(() => {
+      console.log('Done for category seeder creation.')
+      process.exit()
+    })
     .catch((error) => console.error(error))
 })
