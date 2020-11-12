@@ -20,7 +20,7 @@ const users = [
 ]
 
 db.once('open', () => {
-  users.forEach(user => {
+  return users.forEach((user) => {
     return bcrypt.genSalt(10)
       .then(salt => bcrypt.hash(user.password, salt))
       .then(hash => User.create({

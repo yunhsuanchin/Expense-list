@@ -1,7 +1,6 @@
 const dayjs = require('dayjs')
+const utc = require('dayjs/plugin/utc')
+dayjs.extend(utc)
 
-const day = dayjs(1605095729303).format('YYYY-MM-DD')
-
-const anotherDay =
-
-  console.log(day)
+const day = dayjs.utc('2019-7-9')
+console.log(day)

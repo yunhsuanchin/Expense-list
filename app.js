@@ -37,6 +37,8 @@ app.use(flash())
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.today = Date.now()
+  res.locals.monthList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   res.locals.success_msg = req.flash('success_msg')
   res.locals.warning_msg = req.flash('warning_msg')
   res.locals.error_msg = req.flash('error_msg')

@@ -6,7 +6,10 @@ module.exports = {
       return option.fn(this)
     }
   },
-  dateFormat (date) {
+  getFullDate (date) {
     return dayjs(date).format('YYYY-MM-DD')
+  },
+  getYearAndMonth (date) {
+    return dayjs(date).format('YYYY-MM')
   }
 }
