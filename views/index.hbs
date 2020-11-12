@@ -55,14 +55,15 @@
         </div>
       </div>
     </li>
+    {{#if records}}
     {{#each records}}
     <li class="expense-list list-group-item">
-      <div class="row d-flex align-items-center">
+      <div class="row align-items-center">
         <div class="col">
           <div style="width: 30px; display: inline-block;">
             {{{ this.category.icon }}}
           </div>
-          <h4 class="d-inline-block">{{ this.name }}</h4>
+          <h5 class="d-inline-block">{{ this.name }}</h5>
         </div>
         <div class="col-3 text-left">
           <p style="display: inline;">{{ this.merchant }}</p>
@@ -83,6 +84,16 @@
       </div>
     </li>
     {{/each}}
+    {{else}}
+    <li class="expense-list list-group-item">
+      <div class="row align-items-center">
+        <div class="col">
+          <h5 class="text-center"><strong style="color:dark gray;">您選擇的期間沒有支出喲！</strong></h5>
+        </div>
+      </div>
+    </li>
+
+    {{/if}}
 
   </ul>
 </div>

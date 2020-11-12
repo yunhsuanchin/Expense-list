@@ -58,6 +58,7 @@ router.get('/', (req, res, next) => {
           records.forEach((record) => {
             totalAmount += record.amount
           })
+
           return res.render('index', {
             category,
             year,
