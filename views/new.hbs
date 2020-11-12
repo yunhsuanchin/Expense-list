@@ -1,31 +1,33 @@
 <h4 class="text-center pt-3 mb-5">請輸入一筆支出</h4>
-<form action="/records" method="POST">
-  <div class="input-group mb-3">
-    <label for="name" class="btn btn-outline-info" style="min-width: 5em;">名稱</label>
-    <input type="text" class="form-control" name="name" id="name" placeholder="請輸入支出項目" required>
-  </div>
-  <div class="input-group mb-3">
-    <label for="merchant" class="btn btn-outline-info" style="min-width: 5em;">店家</label>
-    <input type="text" class="form-control" name="merchant" id="merchant" placeholder="請輸入店家名稱" required>
-  </div>
-  <div class="input-group mb-3">
-    <label for="date" class="btn btn-outline-info" style="min-width: 5em;">日期</label>
-    <input type="date" class="form-control" name="date" id="date" required value="{{ getFullDate today }}">
-  </div>
-  <div class="input-group mb-3">
-    <label for="category" class="btn btn-outline-info" style="min-width: 5em;">類別</label>
-    <select name="category" id="category" class="form-control" required>
-      <option disabled selected>請選擇類別</option>
-      {{#each categories}}
-      <option value="{{ this._id }}" name="{{ this.title }}">{{ this.title }}</option>
-      {{/each}}
-    </select>
-  </div>
-  <div class="input-group mb-3">
-    <label for="amount" class="btn btn-outline-info" style="min-width: 5em;">金額</label>
-    <input type="number" class="form-control" name="amount" id="amount" required>
-  </div>
-  <div class="text-center pb-3">
-    <button type="submit" class="btn btn-dark">送出</button>
-  </div>
-</form>
+<div class="col-md-6 m-auto">
+  <form action="/records" method="POST">
+    <div class="input-group mb-3">
+      <label for="name" class="btn btn-outline-info" style="min-width: 5em;">名稱</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="請輸入支出項目" required>
+    </div>
+    <div class="input-group mb-3">
+      <label for="merchant" class="btn btn-outline-info" style="min-width: 5em;">店家</label>
+      <input type="text" class="form-control" name="merchant" id="merchant" placeholder="請輸入店家名稱" required>
+    </div>
+    <div class="input-group mb-3">
+      <label for="date" class="btn btn-outline-info" style="min-width: 5em;">日期</label>
+      <input type="date" class="form-control" name="date" id="date" required value="{{ getFullDate today }}">
+    </div>
+    <div class="input-group mb-3">
+      <label for="category" class="btn btn-outline-info" style="min-width: 5em;">類別</label>
+      <select name="category" id="category" class="form-control" required>
+        <option disabled selected>請選擇類別</option>
+        {{#each categories}}
+        <option value="{{ this._id }}" name="{{ this.title }}">{{ this.title }}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="input-group mb-3">
+      <label for="amount" class="btn btn-outline-info" style="min-width: 5em;">金額</label>
+      <input type="number" class="form-control" name="amount" id="amount" placeholder="請輸入花費金額" required>
+    </div>
+    <div class="text-center pb-3">
+      <button type="submit" class="btn btn-primary">送出</button>
+    </div>
+  </form>
+</div>

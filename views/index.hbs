@@ -1,114 +1,87 @@
-<div class="bar text-right pt-3">
-  <p class="mr-3">總支出：
-    <span class="font-weight-bold" style="font-size: larger; color: red;">{{ totalAmount }}</span>
-  </p>
-</div>
-
-<form class="form-inline" method="GET" action="/" id="selector">
+<div class="p-5">
   <div class="row">
-    {{!-- date selection --}}
-    <div class="col">
-      <select class="custom-select" form="selector" onchange="this.form.submit()" name="year">
-        {{#each yearList}}
-        <option value="{{ this }}" name="{{ this }}" {{#if_equal ../year this}}selected{{/if_equal}}>
-          {{ this }} 年</option>{{/each}}
-      </select>
-    </div>
-    <div class="col">
-      <select class="custom-select" form="selector" onchange="this.form.submit()" name="month">
-        <option value="all" name="all">所有月份</option>
-        {{#each monthList}}
-        <option value="{{ this }}" name="{{ this }}" {{#if_equal ../month this}}selected{{/if_equal}}>{{ this }} 月
-        </option>
-        {{/each}}
-      </select>
-    </div>
-    {{!-- category selection --}}
-    <div class="col">
-      <select class="custom-select" form="selector" onchange="this.form.submit()" name="category">
-        <option value="all" name="all">全部類別</option>
-        {{#each categories}}
-        <option value="{{ this.title }}" name="{{ this.title }}"
-          {{#if_equal ../category this.title}}selected{{/if_equal}}>{{ this.title }}
-        </option>
-        {{/each}}
-      </select>
-    </div>
-  </div>
-</form>
-
-{{!-- date selection --}}
-{{!-- 挑戰版 --}}
-{{!-- <div class="col-2.5">
-    <form class="form-inline" method="GET" action="/" id="year">
-      <button type="submit" style="border: 0;"><i class="fas fa-angle-double-left"></i></button>
-      <select class="custom-select my-1 mr-sm-2 ml-1" id="year" form="year" onchange="this.form.submit()" name="year">
-        <option value="2020" name="2020">2020</option>
-        <option value="2019" name="2019">2019</option>
-        <option value="2018" name="2018">2018</option>
-      </select>
-      <button type="submit" style="border: 0;" <i class="fas fa-angle-double-right"></i></button>
-    </form>
-  </div>
-
-  <div class="col mr-auto">
-    <form class="form-inline" method="GET" action="/" id="month">
-      <button type="submit" style="border: 0;"><i class="fas fa-angle-double-left"></i></button>
-      <select class="custom-select my-1 mr-sm-2" id="month" form="month" onchange="this.form.submit()" name="month">
-        <option value="01" name="01">01</option>
-        <option value="02" name="02">02</option>
-        <option value="03" name="03">03</option>
-      </select>
-      <button type="submit" style="border: 0;" <i class="fas fa-angle-double-right"></i></button>
-    </form>
-  </div> --}}
-
-
-
-<ul class="list-group my-3 pb-5">
-  <li class="list-group-item list-group-item-info">
-    <div class="row d-flex align-items-center">
-      <div class="col-3">
-        <h5>支出項目</h5>
-      </div>
-      <div class="col-3">
-        <h5>店家</h5>
-      </div>
-      <div class="col-3">
-        <h5>日期</h5>
-      </div>
-      <div class="col-3">
-        <h5>金額</h5>
-      </div>
-    </div>
-  </li>
-  {{#each records}}
-  <li class="expense-list list-group-item">
-    <div class="row d-flex align-items-center">
+    <form class="form-inline" method="GET" action="/" id="selector">
+      {{!-- date selection --}}
       <div class="col">
-        <div style="width: 30px; display: inline-block;">
-          {{{ this.category.icon }}}
-        </div>
-        <h4 class="d-inline-block">{{ this.name }}</h4>
+        <select class="custom-select" form="selector" onchange="this.form.submit()" name="year">
+          {{#each yearList}}
+          <option value="{{ this }}" name="{{ this }}" {{#if_equal ../year this}}selected{{/if_equal}}>
+            {{ this }} 年</option>{{/each}}
+        </select>
       </div>
-      <div class="col-3 text-left">
-        <p style="display: inline;">{{ this.merchant }}</p>
+      <div class="col">
+        <select class="custom-select" form="selector" onchange="this.form.submit()" name="month">
+          <option value="all" name="all">所有月份</option>
+          {{#each monthList}}
+          <option value="{{ this }}" name="{{ this }}" {{#if_equal ../month this}}selected{{/if_equal}}>{{ this }} 月
+          </option>
+          {{/each}}
+        </select>
       </div>
-      <div class="col-3 text-left">
-        <p style="display: inline;">{{ getFullDate this.date }}</p>
+      {{!-- category selection --}}
+      <div class="col">
+        <select class="custom-select" form="selector" onchange="this.form.submit()" name="category">
+          <option value="all" name="all">全部類別</option>
+          {{#each categories}}
+          <option value="{{ this.title }}" name="{{ this.title }}"
+            {{#if_equal ../category this.title}}selected{{/if_equal}}>{{ this.title }}
+          </option>
+          {{/each}}
+        </select>
       </div>
-      <div class="col-1 text-right">
-        <strong style="color: red;">{{ this.amount }}</strong>
-      </div>
-      <div class="col-2 text-right">
-        <a class="btn btn-outline-warning mr-1" href="./records/{{ this._id }}/edit"><i class="fas fa-edit"></i></a>
-        <form action="/records/{{ this._id}}?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-outline-danger" type="submit"
-            onclick="return confirm('確定刪除『{{ this.name }}』這筆支出嗎？')"><i class="far fa-trash-alt"></i></button>
-        </form>
-      </div>
+    </form>
+    <div class="col">
+      <h2 class="mr-3 text-right">總支出：
+        <span class="font-weight-bold" style="font-size: larger; color: red;">{{ totalAmount }}</span>
+      </h2>
     </div>
-  </li>
-  {{/each}}
+  </div>
 
-</ul>
+  <ul class="list-group my-3 pb-5">
+    <li class="list-group-item list-group-item-secondary">
+      <div class="row d-flex align-items-center">
+        <div class="col-3">
+          <h5><strong>支出項目</strong></h5>
+        </div>
+        <div class="col-3">
+          <h5><strong>店家</strong></h5>
+        </div>
+        <div class="col-3">
+          <h5><strong>日期</strong></h5>
+        </div>
+        <div class="col-3">
+          <h5><strong>金額</strong></h5>
+        </div>
+      </div>
+    </li>
+    {{#each records}}
+    <li class="expense-list list-group-item">
+      <div class="row d-flex align-items-center">
+        <div class="col">
+          <div style="width: 30px; display: inline-block;">
+            {{{ this.category.icon }}}
+          </div>
+          <h4 class="d-inline-block">{{ this.name }}</h4>
+        </div>
+        <div class="col-3 text-left">
+          <p style="display: inline;">{{ this.merchant }}</p>
+        </div>
+        <div class="col-3 text-left">
+          <p style="display: inline;">{{ getFullDate this.date }}</p>
+        </div>
+        <div class="col-1 text-right">
+          <strong style="color: red;">{{ this.amount }}</strong>
+        </div>
+        <div class="col-2 text-right">
+          <a class="btn btn-outline-warning mr-1" href="./records/{{ this._id }}/edit"><i class="fas fa-edit"></i></a>
+          <form action="/records/{{ this._id}}?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn btn-outline-danger" type="submit"
+              onclick="return confirm('確定刪除『{{ this.name }}』這筆支出嗎？')"><i class="far fa-trash-alt"></i></button>
+          </form>
+        </div>
+      </div>
+    </li>
+    {{/each}}
+
+  </ul>
+</div>

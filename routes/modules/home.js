@@ -26,6 +26,12 @@ router.get('/', (req, res, next) => {
   Category.find()
     .lean()
     .then(categories => {
+      // 畫面初始 --> 預設顯示2020年全部花費
+      filter.date = {
+        $gte: '2020-01-01',
+        $lt: '2020-12-31'
+      }
+
       if (year || month || category) {
         if (category !== 'all') {
           filter.category = categories.find(item => item.title === category)._id
