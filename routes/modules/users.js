@@ -11,7 +11,13 @@ router.get('/login', (req, res) => {
 })
 
 // route --> login request
-router.post('/login', passport.authenticate('local', {
+router.post('/login', (req, res, next) => {
+  const { email, password } = req.body
+  if (!email || !password) {
+    return res.render('login', { errorMsg: ['All fields below are required.'] })
+  }
+  next()
+}, passport.authenticate('local', {
   failureRedirect: '/users/login',
   successRedirect: '/',
   failureFlash: true,
@@ -20,7 +26,7 @@ router.post('/login', passport.authenticate('local', {
 
 // route --> logout request
 router.get('/logout', (req, res) => {
-  req.flash('success_msg', `Bye bye ${req.user.name}, see you next time!`)
+  req.flash('successMsg', `Bye bye ${req.user.name}, see you next time!`)
   req.logout()
   res.redirect('/users/login')
 })
@@ -33,24 +39,35 @@ router.get('/register', (req, res) => {
 // route --> register request
 router.post('/register', (req, res, next) => {
   const { name, email, password, confirmPassword } = req.body
+  const errorMsg = []
+  if (!email || !password || !confirmPassword) {
+    errorMsg.push(['Except for name, all fields below are required.'])
+  }
+
+  if (password !== confirmPassword) {
+    errorMsg.push(['The password does not matched.'])
+  }
+
+  if (errorMsg.length) {
+    return res.render('register', {
+      name,
+      email,
+      password,
+      confirmPassword,
+      errorMsg
+    })
+  }
+
   User.findOne({ email })
     .then(user => {
       if (user) {
-        req.flash('error_msg', 'This email has been registered.')
+        errorMsg.push(['This email has been registered.'])
         return res.render('register', {
           name,
           email,
           password,
-          confirmPassword
-        })
-      }
-      if (password !== confirmPassword) {
-        req.flash('error_msg', 'The password does not matched.')
-        return res.render('register', {
-          name,
-          email,
-          password,
-          confirmPassword
+          confirmPassword,
+          errorMsg
         })
       }
 

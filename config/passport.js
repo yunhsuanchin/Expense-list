@@ -11,20 +11,21 @@ module.exports = app => {
 
   // Local Strategies
   passport.use(new LocalStrategy({
-    usernameField: 'email'
-  }, (email, password, done) => {
+    usernameField: 'email',
+    passReqToCallback: true
+  }, (req, email, password, done) => {
     User.findOne({ email })
       .then(user => {
         if (!user) {
-          return done(null, false, { message: 'This email has not been registered.' })
+          return done(null, false, req.flash('errorMsg', 'This email has not been registered.'))
         }
 
         bcrypt.compare(password, user.password)
           .then(isMatch => {
             if (!isMatch) {
-              return done(null, false, { message: 'The password is incorrect.' })
+              return done(null, false, req.flash('errorMsg', 'The password is incorrect.'))
             }
-            return done(null, user, { message: 'Welcome!' })
+            return done(null, user, req.flash('successMsg', `Hey ${user.name}, welcome!`))
           })
       })
       .catch(err => done(err))
@@ -35,13 +36,14 @@ module.exports = app => {
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: process.env.FACEBOOK_CALLBACK,
-    profileFields: ['email', 'displayName']
-  }, (accessToken, refreshToken, profile, done) => {
+    profileFields: ['email', 'displayName'],
+    passReqToCallback: true
+  }, (req, accessToken, refreshToken, profile, done) => {
     const { name, email } = profile._json
     User.findOne({ email })
       .then(user => {
         if (user) {
-          return done(null, user)
+          return done(null, user, req.flash('successMsg', `Hey ${user.name}, welcome back!`))
         }
 
         const randomPassword = Math.random().toString(36).slice(-8)
@@ -52,7 +54,7 @@ module.exports = app => {
             email,
             password: hash
           }))
-          .then(user => done(null, user))
+          .then(user => done(null, user, req.flash('successMsg', `Nice to meet you, ${user.name}!`)))
           .catch(err => done(err))
       })
   }))

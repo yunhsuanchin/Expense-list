@@ -39,9 +39,9 @@ app.use((req, res, next) => {
   res.locals.user = req.user
   res.locals.today = Date.now()
   res.locals.monthList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-  res.locals.success_msg = req.flash('success_msg')
-  res.locals.warning_msg = req.flash('warning_msg')
-  res.locals.error_msg = req.flash('error_msg')
+  res.locals.successMsg = req.flash('successMsg')
+  res.locals.warningMsg = req.flash('warningMsg')
+  res.locals.errorMsg = req.flash('errorMsg')
   next()
 })
 app.use(routes)

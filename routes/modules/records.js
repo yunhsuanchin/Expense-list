@@ -17,7 +17,10 @@ router.post('/', (req, res) => {
   const newRecord = req.body
   newRecord.userId = req.user._id
   Record.create(newRecord)
-    .then(() => res.redirect('/'))
+    .then(() => {
+      req.flash('successMsg', 'Your record has been successfully added!')
+      res.redirect('/')
+    })
     .catch(err => console.error(err))
 })
 
@@ -43,7 +46,10 @@ router.put('/:id', (req, res) => {
       Object.assign(record, editedRecord)
       return record.save()
     })
-    .then(() => res.redirect('/'))
+    .then(() => {
+      req.flash('successMsg', 'Your record has been successfully edited!')
+      res.redirect('/')
+    })
     .catch(err => console.error(err))
 })
 
@@ -52,7 +58,10 @@ router.delete('/:id', (req, res) => {
   const id = req.params.id
   Record.findById(id)
     .then(record => record.remove())
-    .then(() => res.redirect('/'))
+    .then(() => {
+      req.flash('successMsg', 'Your record has been successfully removed.')
+      res.redirect('/')
+    })
     .catch(err => console.error(err))
 })
 
