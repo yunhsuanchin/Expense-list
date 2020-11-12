@@ -33,7 +33,7 @@
     </form>
     <div class="col">
       <h2 class="mr-3 text-right">總支出：
-        <span class="font-weight-bold" style="font-size: larger; color: red;">{{ totalAmount }}</span>
+        <span class="font-weight-bold" style="font-size: larger; color: red;">{{ getNumberFormat totalAmount }}</span>
       </h2>
     </div>
   </div>
@@ -72,7 +72,7 @@
           <p style="display: inline;">{{ getFullDate this.date }}</p>
         </div>
         <div class="col-1 text-right">
-          <strong style="color: red;">{{ this.amount }}</strong>
+          <strong style="color: red;">{{ getNumberFormat this.amount }}</strong>
         </div>
         <div class="col-2 text-right">
           <a class="btn btn-outline-warning mr-1" href="./records/{{ this._id }}/edit"><i class="fas fa-edit"></i></a>
@@ -88,7 +88,7 @@
     <li class="expense-list list-group-item">
       <div class="row align-items-center">
         <div class="col">
-          <h5 class="text-center"><strong style="color:dark gray;">您選擇的期間沒有支出喲！</strong></h5>
+          <h5 class="text-center"><strong style="color:dark gray;">您選擇的類別沒有支出喲！</strong></h5>
         </div>
       </div>
     </li>

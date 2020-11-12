@@ -9,7 +9,14 @@ module.exports = {
   getFullDate (date) {
     return dayjs(date).format('YYYY-MM-DD')
   },
-  getYearAndMonth (date) {
-    return dayjs(date).format('YYYY-MM')
+  getNumberFormat (num) {
+    let result = ''
+    num = (num || 0).toString()
+    while (num.length > 3) {
+      result = `,${num.slice(-3)}${result}`
+      num = num.slice(0, num.length - 3)
+    }
+    if (num) { result = num + result }
+    return result
   }
 }
