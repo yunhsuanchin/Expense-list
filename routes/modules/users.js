@@ -48,6 +48,10 @@ router.post('/register', (req, res, next) => {
     errorMsg.push(['The password does not matched.'])
   }
 
+  if (password.length < 8) {
+    errorMsg.push(['Password should be at least 8 characters.'])
+  }
+
   if (errorMsg.length) {
     return res.render('register', {
       name,
