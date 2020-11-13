@@ -9,27 +9,30 @@ const User = require('../user')
 const records = require('../data/record')
 
 db.once('open', () => {
-  Category.find()
-    .then(categories => {
-      User.find()
-        .then(users => {
-          for (const record of records) {
-            record.category = categories.find(category => category.title === record.category)._id
-          }
+  Promise.all([Record.deleteMany()])
+    .then(() => {
+      Category.find()
+        .then(categories => {
+          User.find()
+            .then(users => {
+              for (const record of records) {
+                record.category = categories.find(category => category.title === record.category)._id
+              }
 
-          records.map((record, index) => {
-            if (index < 2) {
-              record.userId = users[0]._id
-            } else {
-              record.userId = users[1]._id
-            }
-          })
-          return Record.insertMany(records)
+              records.map((record, index) => {
+                if (index < 2) {
+                  record.userId = users[0]._id
+                } else {
+                  record.userId = users[1]._id
+                }
+              })
+              return Record.insertMany(records)
+            })
+            .then(() => {
+              console.log('Done for record seeder creation.')
+              process.exit()
+            })
+            .catch((error) => console.error(error))
         })
-        .then(() => {
-          console.log('Done for record seeder creation.')
-          process.exit()
-        })
-        .catch((error) => console.error(error))
     })
 })

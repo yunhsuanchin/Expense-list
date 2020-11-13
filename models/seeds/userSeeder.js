@@ -20,17 +20,21 @@ const users = [
 ]
 
 db.once('open', () => {
-  Promise.all(users.map(user => {
-    bcrypt.genSalt(10)
-      .then(salt => bcrypt.hash(user.password, salt))
-      .then(hash => User.create({
-        name: user.name,
-        email: user.email,
-        password: hash
+  Promise.all([User.deleteMany()])
+    .then(() => {
+      Promise.all(users.map(user => {
+        return bcrypt.genSalt(10)
+          .then(salt => bcrypt.hash(user.password, salt))
+          .then(hash => User.create({
+            name: user.name,
+            email: user.email,
+            password: hash
+          }))
       }))
-      .then(() => {
-        console.log('Done for userSeeder creation.')
-        process.exit()
-      })
-  }))
+        .then(() => {
+          console.log('Done for userSeeder creation.')
+          process.exit()
+        })
+        .catch(err => console.error(err))
+    })
 })

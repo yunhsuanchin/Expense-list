@@ -7,10 +7,13 @@ const Category = require('../category')
 const categories = require('../data/category.json')
 
 db.once('open', () => {
-  Category.insertMany(categories)
+  Promise.all([Category.deleteMany()])
     .then(() => {
-      console.log('Done for category seeder creation.')
-      process.exit()
+      Category.insertMany(categories)
+        .then(() => {
+          console.log('Done for category seeder creation.')
+          process.exit()
+        })
+        .catch((error) => console.error(error))
     })
-    .catch((error) => console.error(error))
 })
