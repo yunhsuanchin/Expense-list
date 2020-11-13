@@ -3,7 +3,7 @@
 一個使用 Node.js + Express 打造的記帳網站，此網站提供使用者瀏覽已登錄的所有支出，並可點擊單筆支出以修改詳情，或刪除等選項。
 
 <p align="center">
-  <img src="https://github.com/yunhsuanchin/Expense-list/blob/master/Xnip2020-11-13_14-28-07.jpg" width="600">
+  <img src="https://github.com/yunhsuanchin/Expense-list/blob/master/Xnip2020-11-13_14-28-07.jpg" width="1000">
 <p align="center">
       
       
