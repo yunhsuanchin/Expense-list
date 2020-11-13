@@ -20,8 +20,8 @@ const users = [
 ]
 
 db.once('open', () => {
-  return users.forEach((user) => {
-    return bcrypt.genSalt(10)
+  Promise.all(users.map(user => {
+    bcrypt.genSalt(10)
       .then(salt => bcrypt.hash(user.password, salt))
       .then(hash => User.create({
         name: user.name,
@@ -32,5 +32,5 @@ db.once('open', () => {
         console.log('Done for userSeeder creation.')
         process.exit()
       })
-  })
+  }))
 })
